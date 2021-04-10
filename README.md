@@ -8,6 +8,10 @@ Edit `manifest-generator.js` to:
 * Add `"disableAutoUpdate": false` to module.json (default: true)
 * and more
 
+### Updates
+Added overwrite: false/true to specified folders in OVERWITE_CONFIGS (Default: config/) along with enableOverWrites to toggle overwrite false/true.
+*Minor Bug ---Delete manifest.json to regen overwrite properly if in usage
+
 Use one of the following methods to create/update your module's `manifest.json`.
 #### Drag-n'-Drop Method
 Highlight and drag your module's folder (or folders for updating multiple modules) onto `manifest-generator.bat` to "Open with `manifest-generator.bat`"
