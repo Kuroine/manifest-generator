@@ -182,11 +182,13 @@ function getFiles(relativePath = '', files) {
 // get sha256 hash
 function getHash(file, type = 'sha256') {
     file = file.replace(/\\/g, '/')
+    //console.log(file)
     // force unix line endings
     if (forceUnixLineEndings) forceUnix(file)
     // get defs
     getDefs(file)
     if (manifest.files[file] && typeof manifest.files[file] === 'object') {
+        if(manifest.files[file].overwrite == false || manifest.files[file].overwrite == true){manifest.files[file].overwrite = undefined}
         manifest.files[file].hash = crypto.createHash(type).update(fs.readFileSync(path.join(directory, file))).digest('hex')
     }
     else {
@@ -265,6 +267,7 @@ function forceUnix(file) {
             try {
                 let data = fs.readFileSync(path.join(directory, file), 'utf8')
                 data = data.replace(/\r\n/g, '\n')
+                console.log(fs.writeFileSync(path.join(directory, file), data, 'utf8'))
                 fs.writeFileSync(path.join(directory, file), data, 'utf8')
             }
             catch (err) {
@@ -278,12 +281,14 @@ function forceUnix(file) {
 
 // alphabetize object keys
 function alphabetizeObject(obj) {
+    //console.log(obj)
     let keys = Object.keys(obj)
     keys.sort()
     let newObj = {}
     var tempObj = {}
     for (let key of keys) {
         if(key.indexOf(OVERWITE_CONFIGS) == 0){
+            tempObj = {}
             if(enableOverWrites === false){
                 tempObj = {
                     "overwrite": false,
