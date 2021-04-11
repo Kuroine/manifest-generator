@@ -288,25 +288,30 @@ function alphabetizeObject(obj) {
     let newObj = {}
     var tempObj = {}
     for (let key of keys) {
-        if(key.indexOf(OVERWITE_CONFIGS) == 0){
-            tempObj = {}
-            if(enableOverWrites === false){
-                if(typeof obj[key] === 'object') obj[key] = obj[key].hash; //Cheat hax
-                tempObj = {
-                    "overwrite": false,
-                    "hash": obj[key]
+        for (let type of OVERWITE_CONFIGS) {
+            if (key.indexOf(type) == 0) {
+                tempObj = {}
+                if (enableOverWrites === false) {
+                    if (typeof obj[key] === 'object') obj[key] = obj[key].hash; //Cheat hax
+                    tempObj = {
+                        "overwrite": false,
+                        "hash": obj[key]
+                    }
                 }
-            }
-            if(enableOverWrites === true){
-                if(typeof obj[key] === 'object') obj[key] = obj[key].hash; //Cheat hax
-                tempObj = {
-                    "overwrite": true,
-                    "hash": obj[key]
+                if (enableOverWrites === true) {
+                    if (typeof obj[key] === 'object') obj[key] = obj[key].hash; //Cheat hax
+                    tempObj = {
+                        "overwrite": true,
+                        "hash": obj[key]
+                    }
                 }
+                newObj[key] = tempObj;
             }
-        newObj[key] = tempObj;
-        }   
-        else newObj[key] = obj[key];
+            else {
+                if(typeof newObj[key] === 'object')  newObj[key] = newObj[key];
+                else newObj[key] = obj[key];
+            }
+        }
     }
     return newObj
 }
