@@ -188,13 +188,14 @@ function getHash(file, type = 'sha256') {
     // get defs
     getDefs(file)
     if (manifest.files[file] && typeof manifest.files[file] === 'object') {
-        if(manifest.files[file].overwrite == false || manifest.files[file].overwrite == true){manifest.files[file].overwrite = undefined}
+        if(typeof manifest.files[file].overwrite === 'boolean'){
+           delete manifest.files[file].overwrite; 
+        }
         manifest.files[file].hash = crypto.createHash(type).update(fs.readFileSync(path.join(directory, file))).digest('hex')
-    }
-    else {
-        manifest.files[file] = crypto.createHash(type).update(fs.readFileSync(path.join(directory, file))).digest('hex')
-    }
+    } 
+    else manifest.files[file] = crypto.createHash(type).update(fs.readFileSync(path.join(directory, file))).digest('hex')
 }
+
 
 // get defs
 function getDefs(file) {
@@ -290,12 +291,14 @@ function alphabetizeObject(obj) {
         if(key.indexOf(OVERWITE_CONFIGS) == 0){
             tempObj = {}
             if(enableOverWrites === false){
+                if(typeof obj[key] === 'object') obj[key] = obj[key].hash; //Cheat hax
                 tempObj = {
                     "overwrite": false,
                     "hash": obj[key]
                 }
             }
             if(enableOverWrites === true){
+                if(typeof obj[key] === 'object') obj[key] = obj[key].hash; //Cheat hax
                 tempObj = {
                     "overwrite": true,
                     "hash": obj[key]
