@@ -10,8 +10,12 @@ Edit `manifest-generator.js` to:
 
 ### Updates
 Added overwrite: false/true to specificed folders/filenames
-**OVERWITE_CONFIGS** for filenames/folders (default: config/)
-**enableOverWrites** for false/true flag in overwrite
+##### OVERWITE_CONFIGS
+filenames/folders (default: config/)
+##### enableOverWrites 
+false/true flag in overwrite  
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 Use one of the following methods to create/update your module's `manifest.json`.
 #### Drag-n'-Drop Method
