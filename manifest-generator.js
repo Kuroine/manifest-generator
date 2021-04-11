@@ -45,6 +45,7 @@ const IGNORED_CHARACTERS = [
 ]
 
 //Toggle overwrite in specified folder in manifest hash (overwrite: false by default) enableOverWrites to change overwrite to true
+//Can be filenames/Folder Directories
 const OVERWITE_CONFIGS = [
     'config/'
 ]
