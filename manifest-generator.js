@@ -310,7 +310,7 @@ function alphabetizeObject(obj) {
             else {
                 if(typeof newObj[key] === 'object'){
                     if(typeof newObj[key].overwrite === 'boolean') newObj[key] = newObj[key];
-                    if(typeof newObj[key].overwrite === 'undefined') newObj[key] = newObj[key].hash;
+                    if(typeof newObj[key].overwrite === 'undefined' && typeof newObj[key].hash === 'string') newObj[key] = newObj[key].hash;
                 }  
                 else newObj[key] = obj[key];
             }
